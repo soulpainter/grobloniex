@@ -1,31 +1,16 @@
 <?php
 
-/*
-
-$BOUGHT = 6.001050000000001 DASH
-check
-
-$BOUGHT_PRICE_PER_COIN = 0.01635616266666666 BTC
-check
-
-$BOUGHT_BTC_TO_USD_QUOTE = $903
-check
-
-$CURRENT_PRICE_PER_COIN = 0.03680007 BTC
-
-$CURRENT_BTC_TO_USD_QUOTE = $1268.11
-
-*/
-
 require_once('BtcPurchaseSnapshotPDO.php');
 require_once('TradingHistoryPDO.php');
+require_once('StatsPDO.php');
 
 $BtcPurchaseSnapshotPDO = new BtcPurchaseSnapshotPDO();
 $TradingHistoryPDO = new TradingHistoryPDO();
+$StatsPDO = new StatsPDO();
 
 $currencies = $TradingHistoryPDO->fetchAllOwnedCurrencies();
 
-print "currency,total_owned,avg_purchase_rate,average_btc_price,purchase_total_btc,purchase_total_usd,current_rate,current_btc_price,current_total_btc,current_total_usd\n";
+#print "currency,total_owned,avg_purchase_rate,average_btc_price,purchase_total_btc,purchase_total_usd,current_rate,current_btc_price,current_total_btc,current_total_usd\n";
 
 foreach ($currencies as $currency)
 {
@@ -51,7 +36,11 @@ foreach ($currencies as $currency)
 
   #print "\n-------------------------\n\n";
 
-  print "$currency,$owned[totalPurchased],$owned[avgPurchaseRate],$multiDayBtcPrice[averageBtcPrice],$purchase[totalSpent],$purchase[totalUsdSpent],$currentQuote[last],$btcQuote[last],$current[totalSpent],$current[totalUsdSpent]\n";
+  $sql = "INSERT INTO Stats (currency, total_owned, avg_purchase_rate, average_btc_price, purchase_total_btc, purchase_total_usd, current_rate, current_btc_price, current_total_btc, current_total_usd, creationDate) VALUES ('$currency','$owned[totalPurchased]','$owned[avgPurchaseRate]','$multiDayBtcPrice[averageBtcPrice]','$purchase[totalSpent]','$purchase[totalUsdSpent]','$currentQuote[last]','$btcQuote[last]','$current[totalSpent]','$current[totalUsdSpent]',NOW())";
+
+  $StatsPDO->addRow($sql);
+
+  #print "$currency,$owned[totalPurchased],$owned[avgPurchaseRate],$multiDayBtcPrice[averageBtcPrice],$purchase[totalSpent],$purchase[totalUsdSpent],$currentQuote[last],$btcQuote[last],$current[totalSpent],$current[totalUsdSpent]\n";
   #exit;
 
 }
