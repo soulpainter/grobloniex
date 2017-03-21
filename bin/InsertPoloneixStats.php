@@ -1,8 +1,8 @@
 <?php
 
-require_once('BtcPurchaseSnapshotPDO.php');
-require_once('TradingHistoryPDO.php');
-require_once('StatsPDO.php');
+require_once('../src/BtcPurchaseSnapshotPDO.php');
+require_once('../src/TradingHistoryPDO.php');
+require_once('../src/StatsPDO.php');
 
 $BtcPurchaseSnapshotPDO = new BtcPurchaseSnapshotPDO();
 $TradingHistoryPDO = new TradingHistoryPDO();

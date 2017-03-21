@@ -94,16 +94,29 @@
         }
         
         public function get_my_trade_history($pair) {
+            $date = new DateTime();
             return $this->query(
                 array(
                     'command' => 'returnTradeHistory',
-                    'start' => 1451606400,
-                    'end' => 1486841557,
+                    'start' => 1388534400,
+                    'end' => $date->getTimestamp(),
                     'currencyPair' => strtoupper($pair)
                 )
             );
         }
         
+        public function get_my_deposits_withdraws() {
+            $date = new DateTime();
+            return $this->query(
+                array(
+                    'command' => 'returnDepositsWithdrawals',
+                    'start' => 1388534400,
+                    'end' => $date->getTimestamp(),
+                    #'currencyPair' => strtoupper($pair)
+                )
+            );
+        }
+
         public function buy($pair, $rate, $amount) {
             return $this->query( 
                 array(
