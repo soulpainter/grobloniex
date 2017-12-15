@@ -30,8 +30,8 @@ exit;
 
 require_once 'poloniex-api-wrapper.php';
 
-$key = '51EENPG1-4J5JMNE3-9EFR9ZJ5-KP1X2T1X';
-$secret = '402996c4013201f517561c504ada4d2224a0d2ff81dfd55e74048fc1d356b1fc117204f14c0c361aa4388545811145c1c87c70207dd156dc0ef53f8e95a57c35';
+$key = 'xxx';
+$secret = 'ccc';
 
 $polo = new poloniex($key, $secret);
 
